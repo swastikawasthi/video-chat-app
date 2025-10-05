@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teams Style Meeting</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f3f2f1;
+            margin: 0;
+            padding: 40px;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            gap: 40px;
+        }
+
+        .card {
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            width: 320px;
+            box-sizing: border-box;
+        }
+
+        .card h2 {
+            color: #6264a7;
+            margin-bottom: 20px;
+            font-size: 20px;
+        }
+
+        .card label {
+            display: block;
+            margin-top: 10px;
+            font-weight: 500;
+        }
+
+        .card input {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+
+        .card button {
+            width: 100%;
+            padding: 12px;
+            background-color: #6264a7;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-weight: bold;
+            font-size: 14px;
+            cursor: pointer;
+        }
+
+        .card button:hover {
+            background-color: #464775;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="card" id="createMeetingCard">
+        <h2>Create a Meeting</h2>
+        <label for="adminName">Your Name</label>
+        <input type="text" id="adminName" name="adminName" placeholder="Enter your name">
+        <button id="createMeetingBtn">Create Meeting ID &amp; Password</button>
+    </div>
+
+    <div class="card" id="joinMeetingCard">
+        <h2>Join a Meeting</h2>
+        <label for="participantName">Your Name</label>
+        <input type="text" id="participantName" name="participantName" placeholder="Enter your name">
+
+        <label for="meetingId">Meeting ID</label>
+        <input type="text" id="meetingId" name="meetingId" placeholder="Enter meeting ID">
+
+        <label for="meetingPassword">Meeting Password</label>
+        <input type="text" id="meetingPassword" name="meetingPassword" placeholder="Enter password">
+
+        <button id="joinMeetingBtn">Join Meeting</button>
+    </div>
+
+</body>
+</html>
