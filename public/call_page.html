@@ -57,15 +57,13 @@
             color: #444;
         }
     </style>
+    <script src="./socket.io.js"></script>
 </head>
 <body>
 
     <div id="call_area">
         
-<video id="localVideo" autoplay muted></video>
-    <video id="remoteVideo" autoplay></video>
-    </script src="/socket.io/socket.io.js"></script>
-    
+
 
     </div>
 
@@ -78,55 +76,7 @@
         <button id="leaveBtn">LEAVE</button>
     </div>
 <script>
-    const socket = io();
-const room = 'default-room';
-socket.emit('join', room);
-
-const localVideo = document.getElementById('localVideo');
-const remoteVideo = document.getElementById('remoteVideo');
-
-const peerConnection = new RTCPeerConnection();
-
-navigator.mediaDevices.getUserMedia({ video: true, audio: true })
-    .then(stream => {
-        localVideo.srcObject = stream;
-        stream.getTracks().forEach(track => peerConnection.addTrack(track, stream));
-    });
-
-peerConnection.ontrack = event => {
-    remoteVideo.srcObject = event.streams[0];
-};
-
-peerConnection.onicecandidate = event => {
-    if (event.candidate) {
-        socket.emit('ice-candidate', { candidate: event.candidate, room });
-    }
-};
-
-socket.on('user-connected', async () => {
-    const offer = await peerConnection.createOffer();
-    await peerConnection.setLocalDescription(offer);
-    socket.emit('offer', { offer, room });
-});
-
-socket.on('offer', async data => {
-    await peerConnection.setRemoteDescription(new RTCSessionDescription(data.offer));
-    const answer = await peerConnection.createAnswer();
-    await peerConnection.setLocalDescription(answer);
-    socket.emit('answer', { answer, room });
-});
-
-socket.on('answer', async data => {
-    await peerConnection.setRemoteDescription(new RTCSessionDescription(data.answer));
-});
-
-socket.on('ice-candidate', async data => {
-    try {
-        await peerConnection.addIceCandidate(data.candidate);
-    } catch (e) {
-        console.error('Error adding received ice candidate', e);
-    }
-});
+    const socket = io()
 
 </script>
 </body>

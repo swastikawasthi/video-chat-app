@@ -63,6 +63,7 @@
             background-color: #464775;
         }
     </style>
+    <script src="./socket.io.js"></script>
 </head>
 <body>
 
@@ -70,7 +71,7 @@
         <h2>Create a Meeting</h2>
         <label for="adminName">Your Name</label>
         <input type="text" id="adminName" name="adminName" placeholder="Enter your name">
-        <button id="createMeetingBtn">Create Meeting ID &amp; Password</button>
+        <button id="createMeetingBtn" onclick="createroom()">Create Meeting ID &amp; Password</button>
     </div>
 
     <div class="card" id="joinMeetingCard">
@@ -84,7 +85,25 @@
         <label for="meetingPassword">Meeting Password</label>
         <input type="text" id="meetingPassword" name="meetingPassword" placeholder="Enter password">
 
-        <button id="joinMeetingBtn">Join Meeting</button>
+       <button id="joinMeetingBtn" onclick="joinroom()">Join Meeting</button>
+
+<script>
+  const socket =io();
+ function createroom(){
+
+    socket.emit('create_room',document.getElementById('adminName').value);
+ }
+
+ function joinroom(){
+
+    socket.emit('join_room',document.getElementById('meetingId').value);
+ }
+socket.on('noti',data=>alert(data))
+
+
+
+
+</script>
     </div>
 
 </body>

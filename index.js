@@ -8,24 +8,16 @@ const io = socketIO(server);
 
 app.use(express.static('public'));
 
-io.on('connection', socket => {
-    socket.on('join', room => {
-        socket.join(room);
-        socket.to(room).emit('user-connected', socket.id);
 
-        socket.on('offer', data => {
-            socket.to(room).emit('offer', data);
-        });
 
-        socket.on('answer', data => {
-            socket.to(room).emit('answer', data);
-        });
+io.on('connection', socket => {console.log(socket.id)
+ socket.on('create_room',data=>{console.log(data)
+    socket.join(data+'__'+socket.id);
+    io.to(data+'__'+socket.id).emit('noti', data+'__'+socket.id)
+ })
+socket.on('join_room',data=>{socket.join(data);io.to(data).emit('noti', data)})
 
-        socket.on('ice-candidate', data => {
-            socket.to(room).emit('ice-candidate', data);
-        });
-    });
-});
+})
 
 server.listen(3000, () => {
     console.log('Server running on http://localhost:3000');
